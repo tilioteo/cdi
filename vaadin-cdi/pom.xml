@@ -4,7 +4,7 @@
 
     <groupId>com.vaadin</groupId>
     <artifactId>vaadin-cdi</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.3.1</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -12,7 +12,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
         <!-- In addition to POMs, these version numbers are in ArchiveProvider for tests -->
-        <vaadin.version>7.5.1</vaadin.version>
+        <vaadin.version>7.6.8</vaadin.version>
         <deltaspike.version>1.7.2</deltaspike.version>
 
         <!-- Testing dependencies -->
@@ -102,7 +102,7 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
+                    <!--plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>2.9</version>
@@ -114,8 +114,8 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
+                    </plugin-->
+                    <!--plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>properties-maven-plugin</artifactId>
                         <version>1.0-alpha-2</version>
@@ -132,8 +132,8 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
+                    </plugin-->
+                    <!--plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
                         <version>1.4</version>
@@ -146,7 +146,7 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
+                    </plugin-->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-assembly-plugin</artifactId>
@@ -362,17 +362,18 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
+                	<skipTests>true</skipTests>
                     <!-- Assertions must be disabled when @UIScoped is a @NormalScope
                         otherwise the core framework will fail assertions that compare
                         a direct reference to a proxy, such as in VaadinSession#removeUI
                         and ConnectorTracker#cleanConnectorMap (#14508) -->
-                    <enableAssertions>false</enableAssertions>
+                    <!--enableAssertions>false</enableAssertions-->
                     <!-- Fork every test because it will launch a separate AS instance -->
-                    <forkMode>always</forkMode>
+                    <!--forkMode>always</forkMode>
                     <systemPropertyVariables>
                        <javax.el.ExpressionFactory>org.apache.el.ExpressionFactoryImpl</javax.el.ExpressionFactory>
                     </systemPropertyVariables>
-                    <redirectTestOutputToFile>false</redirectTestOutputToFile>
+                    <redirectTestOutputToFile>false</redirectTestOutputToFile-->
                 </configuration>
             </plugin>
             <plugin>

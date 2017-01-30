@@ -26,6 +26,7 @@ import javax.enterprise.inject.Any;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.util.AnnotationLiteral;
+import javax.servlet.http.HttpServletRequest;
 
 import com.vaadin.cdi.internal.AnnotationUtil;
 import com.vaadin.cdi.internal.CDIUtil;
@@ -124,13 +125,17 @@ public class CDIUIProvider extends DefaultUIProvider implements Serializable {
     }
 
     boolean isRoot(VaadinRequest request) {
-        String pathInfo = request.getPathInfo();
+        String pathInfo = getPath(request);
 
         if (pathInfo == null) {
             return false;
         }
 
         return pathInfo.equals("/");
+    }
+    
+    private String getPath(VaadinRequest request) {
+    	return request instanceof HttpServletRequest ? ((HttpServletRequest) request).getServletPath() : request.getPathInfo();
     }
 
     Class<? extends UI> rootUI() {
@@ -208,7 +213,7 @@ public class CDIUIProvider extends DefaultUIProvider implements Serializable {
     }
 
     String parseUIMapping(VaadinRequest request) {
-        return parseUIMapping(request.getPathInfo());
+		return parseUIMapping(getPath(request));
     }
 
     String parseUIMapping(String requestPath) {
